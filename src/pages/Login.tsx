@@ -134,7 +134,7 @@ const Login = () => {
                   Enter verification code
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  Sent to <span className="font-medium text-foreground">{phone}</span>
+                  Sent to <span className="font-medium text-foreground">{countryCode} {phone}</span>
                 </p>
               </div>
 
