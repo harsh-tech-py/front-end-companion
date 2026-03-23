@@ -33,6 +33,20 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [isDark, setIsDark] = useState(true);
   const [countryCode, setCountryCode] = useState("+1");
+  const [resendTimer, setResendTimer] = useState(0);
+
+  useEffect(() => {
+    if (resendTimer <= 0) return;
+    const id = setInterval(() => setResendTimer((t) => t - 1), 1000);
+    return () => clearInterval(id);
+  }, [resendTimer]);
+
+  const startResendTimer = useCallback(() => setResendTimer(30), []);
+
+  const handleResendOtp = () => {
+    startResendTimer();
+    // Mock resend
+  };
   const handleSendOtp = (e: React.FormEvent) => {
     e.preventDefault();
     if (phone.length < 10) return;
