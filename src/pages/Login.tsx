@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Phone, ArrowRight, ShieldCheck, MessageSquare } from "lucide-react";
+import { Phone, ArrowRight, ShieldCheck, MessageSquare, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
@@ -11,7 +11,8 @@ const Login = () => {
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [isDark, setIsDark] = useState(true);
+  
   const handleSendOtp = (e: React.FormEvent) => {
     e.preventDefault();
     if (phone.length < 10) return;
@@ -32,7 +33,15 @@ const Login = () => {
   };
 
   return (
-    <div className="dark flex min-h-screen items-center justify-center bg-background p-4">
+    <div className={`${isDark ? "dark" : ""} flex min-h-screen items-center justify-center bg-background p-4`}>
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => setIsDark(!isDark)}
+        className="absolute top-4 right-4 text-foreground"
+      >
+        {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+      </Button>
       <div className="w-full max-w-md">
         {/* Logo / Branding */}
         <div className="mb-8 flex flex-col items-center gap-2">
