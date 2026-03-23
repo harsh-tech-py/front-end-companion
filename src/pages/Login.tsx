@@ -1,9 +1,29 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Phone, ArrowRight, ShieldCheck, MessageSquare, Sun, Moon } from "lucide-react";
+import { Phone, ArrowRight, ShieldCheck, MessageSquare, Sun, Moon, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const countryCodes = [
+  { code: "+1", flag: "🇺🇸", name: "US" },
+  { code: "+44", flag: "🇬🇧", name: "UK" },
+  { code: "+91", flag: "🇮🇳", name: "IN" },
+  { code: "+61", flag: "🇦🇺", name: "AU" },
+  { code: "+81", flag: "🇯🇵", name: "JP" },
+  { code: "+49", flag: "🇩🇪", name: "DE" },
+  { code: "+33", flag: "🇫🇷", name: "FR" },
+  { code: "+86", flag: "🇨🇳", name: "CN" },
+  { code: "+55", flag: "🇧🇷", name: "BR" },
+  { code: "+971", flag: "🇦🇪", name: "AE" },
+];
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,7 +32,7 @@ const Login = () => {
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
   const [isDark, setIsDark] = useState(true);
-  
+  const [countryCode, setCountryCode] = useState("+1");
   const handleSendOtp = (e: React.FormEvent) => {
     e.preventDefault();
     if (phone.length < 10) return;
