@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Phone, ArrowRight, ShieldCheck, MessageSquare, Sun, Moon, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,6 +33,20 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [isDark, setIsDark] = useState(true);
   const [countryCode, setCountryCode] = useState("+1");
+  const [resendTimer, setResendTimer] = useState(0);
+
+  useEffect(() => {
+    if (resendTimer <= 0) return;
+    const id = setInterval(() => setResendTimer((t) => t - 1), 1000);
+    return () => clearInterval(id);
+  }, [resendTimer]);
+
+  const startResendTimer = useCallback(() => setResendTimer(30), []);
+
+  const handleResendOtp = () => {
+    startResendTimer();
+    // Mock resend
+  };
   const handleSendOtp = (e: React.FormEvent) => {
     e.preventDefault();
     if (phone.length < 10) return;
@@ -40,6 +54,7 @@ const Login = () => {
     setTimeout(() => {
       setLoading(false);
       setStep("otp");
+      startResendTimer();
     }, 1200);
   };
 
@@ -165,13 +180,27 @@ const Login = () => {
                 )}
               </Button>
 
-              <button
-                type="button"
-                onClick={() => { setStep("phone"); setOtp(""); }}
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-              >
-                ← Change phone number
-              </button>
+              <div className="flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={() => { setStep("phone"); setOtp(""); setResendTimer(0); }}
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  ← Change number
+                </button>
+                <button
+                  type="button"
+                  onClick={handleResendOtp}
+                  disabled={resendTimer > 0}
+                  className={`text-xs transition-colors ${
+                    resendTimer > 0
+                      ? "text-muted-foreground cursor-not-allowed"
+                      : "text-primary hover:text-primary/80"
+                  }`}
+                >
+                  {resendTimer > 0 ? `Resend in ${resendTimer}s` : "Resend OTP"}
+                </button>
+              </div>
             </div>
           )}
         </div>
