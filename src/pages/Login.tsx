@@ -32,7 +32,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4">
+    <div className="dark flex min-h-screen items-center justify-center bg-background p-4">
       <div className="w-full max-w-md">
         {/* Logo / Branding */}
         <div className="mb-8 flex flex-col items-center gap-2">
