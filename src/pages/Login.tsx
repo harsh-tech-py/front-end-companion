@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Phone, ArrowRight, ShieldCheck, MessageSquare } from "lucide-react";
+import { Phone, ArrowRight, ShieldCheck, MessageSquare, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
@@ -11,7 +11,8 @@ const Login = () => {
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [isDark, setIsDark] = useState(true);
+  
   const handleSendOtp = (e: React.FormEvent) => {
     e.preventDefault();
     if (phone.length < 10) return;
