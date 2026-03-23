@@ -33,7 +33,15 @@ const Login = () => {
   };
 
   return (
-    <div className="dark flex min-h-screen items-center justify-center bg-background p-4">
+    <div className={`${isDark ? "dark" : ""} flex min-h-screen items-center justify-center bg-background p-4`}>
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => setIsDark(!isDark)}
+        className="absolute top-4 right-4 text-foreground"
+      >
+        {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+      </Button>
       <div className="w-full max-w-md">
         {/* Logo / Branding */}
         <div className="mb-8 flex flex-col items-center gap-2">
