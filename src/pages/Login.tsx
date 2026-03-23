@@ -54,6 +54,7 @@ const Login = () => {
     setTimeout(() => {
       setLoading(false);
       setStep("otp");
+      startResendTimer();
     }, 1200);
   };
 
