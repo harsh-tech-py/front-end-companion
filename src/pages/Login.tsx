@@ -180,13 +180,27 @@ const Login = () => {
                 )}
               </Button>
 
-              <button
-                type="button"
-                onClick={() => { setStep("phone"); setOtp(""); }}
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-              >
-                ← Change phone number
-              </button>
+              <div className="flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={() => { setStep("phone"); setOtp(""); setResendTimer(0); }}
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  ← Change number
+                </button>
+                <button
+                  type="button"
+                  onClick={handleResendOtp}
+                  disabled={resendTimer > 0}
+                  className={`text-xs transition-colors ${
+                    resendTimer > 0
+                      ? "text-muted-foreground cursor-not-allowed"
+                      : "text-primary hover:text-primary/80"
+                  }`}
+                >
+                  {resendTimer > 0 ? `Resend in ${resendTimer}s` : "Resend OTP"}
+                </button>
+              </div>
             </div>
           )}
         </div>
